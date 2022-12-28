@@ -15,15 +15,27 @@ Solo se pueden colocar cincos o todas aquellas cartas que siguen en progresión 
 Si un jugador no puede colocar ninguna carta, pasa, y el turno le corresponde al siguiente jugador. Un jugador puede pasar su turno, es decir, no depositar una carta, solamente si no tiene lugar para colocarla. Si un jugador puede poner varias cartas deberá elegir la que más le convenga para ganar el juego.
 
 El primer jugador que consigue colocar todas sus cartas sobre la mesa (quedándose por tanto sin ninguna en la mano) es el ganador.
-
-![Mesa de juego](https://es.wikipedia.org/wiki/Cinquillo_(juego)#/media/Archivo:Cinquillo-desarrollo-del-juego.png)
 Fuente: https://es.wikipedia.org/wiki/Cinquillo_(juego)
 
-Caraterísticas:
+![Mesa de juego](https://asisejuega.com/wp-content/uploads/2022/06/Cinquillo-1.jpg)
+Fuente: https://asisejuega.com/juegos-de-cartas/cinquillo/
+
+
+## ¿Cómo se juega?
+Para este juego, como en otros muchos juego clásicos, hay muchas variaciones en el juego. En este caso:
+- No hay puntos
+- En esta versión solo se puede tirar una carta por turno
+
+Si no sabes jugar puedes consultar estas páginas webs:
+- https://www.mundijuegos.com/multijugador/cinquillo/reglas/
+- https://asisejuega.com/juegos-de-cartas/cinquillo/
+- https://es.wikipedia.org/wiki/Cinquillo_(juego)
+
+
+## Caraterísticas:
 - Esta versión se ha desarrollado para jugar de 2 a 4 jugadores
 - No tiene recursos gráficos, esta centrado en la lógica por eso se desarrolla en la terminal, mas adelante se implementara con Tkinter
 - Las cartas se reparten en manos aleatoriamente
-- En esta versión solo se puede tirar una carta por turno
 - Hay un filtro para validar la tirada:
   - No esta permitido tirar una carta que no este en tu mano
   - No puedes dejar ningún hueco sin tirar
@@ -31,19 +43,19 @@ Caraterísticas:
 
 
 ---
-## Instrucciones de instalación
+# Instrucciones de instalación
 - Clonar el repositorio en local
 - Tener instalado Python 3.10.
 - Ejecutar: 'Cinquillo.py'
 
 
 ---
-## Instrucciones de uso
+# Instrucciones de uso
 Seguir las instrucciones que se van mostrando en el terminal
 
 
 ---
-## Manifiesto de los archivos del repositorio
+# Manifiesto de los archivos del repositorio
 - README.md
   El archivo que estas leyendo
 
@@ -52,8 +64,8 @@ Seguir las instrucciones que se van mostrando en el terminal
 
 
 ---
-## Historial de versiones
-### Funciones a implementar
+# Historial de versiones
+## Funciones a implementar
 Implementaciones futuras:
 - Si escribimos Salir cuando preguntamos por la tirada salimos de la aplicación
 - Añadir la ia:
@@ -73,29 +85,29 @@ Implementaciones futuras:
 
 
 ---
-## Licencias y derechos de autor
+# Licencias y derechos de autor
 CC (Creative Commons) de Reconocimiento – NoComercial – SinObraDerivada
 ![CC (Creative Commons) de Reconocimiento – NoComercial – SinObraDerivada](https://raw.githubusercontent.com/JavierPerezManzanaro/Maquetacion-de-masivos-responsive-html-con-noticias/main/Reconocimiento-no-comercial-sin-obra-derivada.png)
 
 
 ---
-## Información de contacto del autor
+# Información de contacto del autor
 Javier Pérez
 javierperez@perasalvino.es
 
 
 ---
-## Errores conocidos
+# Errores conocidos
 -
 
 
 ---
-## Motivación
+# Motivación
 Es un juego de cartas clásico que todo el mundo conoce. Realizar una aplicación que desarrolle el juego supone un reto. No se pueden tirar cualquier carta, hay que validar la tirada según varios parametros, implementamos la POO (las cartas y los jugadores son objetos), funciones, etc
 Mas adelante usar uno o más jugadores como una Inteligencia Artificial supone un reto añadido.
 Por último su paso de la version del terminal a una versión de escritorio con Tkinter es otro handicap.
 
 ---
-## Créditos y agradecimientos
+# Créditos y agradecimientos
 - A toda la comunidad web que me ha permitido ir ampliando mi formación.
 - A mi familia por su infinita paciencia.

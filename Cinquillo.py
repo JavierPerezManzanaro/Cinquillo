@@ -722,10 +722,10 @@ if __name__ == '__main__':
         print()
 
         print(f'{jugador_activo_nombre} te toca tirar. En tu mano tienes:')
-        #print(f'{id(jugador_activo.mano)=}')
+        # print(f'{id(jugador_activo.mano)=}')
         mostar_estado(jugador_activo_mano)
-        #print(f'{id(jugador_activo.mano)=}')
-        #print(f'{jugador_activo_nombre=} - {id(jugador_activo_mano)=}')
+        # print(f'{id(jugador_activo.mano)=}')
+        # print(f'{jugador_activo_nombre=} - {id(jugador_activo_mano)=}')
 
         print()
 
