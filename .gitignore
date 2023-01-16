@@ -1,5 +1,8 @@
 # archivos mios
 venv/
+.vscode/
+Cinquillo antes de autopep8.py
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

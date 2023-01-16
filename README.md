@@ -1,8 +1,8 @@
 ![Lenguaje Python](https://img.shields.io/badge/Lenguaje-Python-green)
 ![Versión de Python 3.10](https://img.shields.io/badge/Versión%20de%20Python-3.10-green)
+[![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/)
 
 
----
 # Juego de cartas del Cinquillo
 ## Descripción
 Se reparten todas las cartas y el juego consiste en ir colocando las cartas sobre la mesa hasta quedarse sin ninguna.
@@ -19,6 +19,13 @@ Fuente: https://es.wikipedia.org/wiki/Cinquillo_(juego)
 
 ![Mesa de juego](https://asisejuega.com/wp-content/uploads/2022/06/Cinquillo-1.jpg)
 Fuente: https://asisejuega.com/juegos-de-cartas/cinquillo/
+
+
+## Inteligencia artificial
+"La inteligencia artificial es, en las ciencias de la computación, la disciplina que intenta replicar y desarrollar la inteligencia y sus procesos implícitos a través de computadoras."
+Fuente: https://es.wikipedia.org/wiki/Inteligencia_artificial
+
+En este caso la modalidad es sin aprendizaje.
 
 
 ## ¿Cómo se juega?
@@ -42,19 +49,16 @@ Si no sabes jugar puedes consultar estas páginas webs:
   - Admite el uso de las palabras Sota, Caballo y Rey aunque solo se muestra el número en el panel
 
 
----
 # Instrucciones de instalación
 - Clonar el repositorio en local
 - Tener instalado Python 3.10.
 - Ejecutar: 'Cinquillo.py'
 
 
----
 # Instrucciones de uso
 Seguir las instrucciones que se van mostrando en el terminal
 
 
----
 # Manifiesto de los archivos del repositorio
 - README.md
   El archivo que estas leyendo
@@ -63,51 +67,58 @@ Seguir las instrucciones que se van mostrando en el terminal
   Juego en Python
 
 
----
 # Historial de versiones
 ## Funciones a implementar
 Implementaciones futuras:
 - Si escribimos Salir cuando preguntamos por la tirada salimos de la aplicación
 - Añadir la ia:
-  - Sera un jugador autonomo, la máquina
+  - Opción de poner el nombre que el usuario desee, por ejemplo: AI iMac, IA Ex Machina, IA Her
+  - Sera uno o más jugadores autonomos
+  - Abra dos niveles en la IA:
+    - Nivel 1: Solo pretende colocar sus cartas
+    - Nivel 2: Además de colocar sus cartas intenta impedir que sus openentes las coloquen
   - El proceso sera almacenar, en una variable, la importancia o el peso que se da a la carta según estos criterios:
-      - Lo lejos que este del centro
-      - Si hay dentras mas cartas en nuestra mano
-      - Cuanto más lejos este del 5 peor
-      - Cuando más lejos este de la más próxima peor
-- Añadir dos niveles de ayuda. Nos ayudaremos de la función es_posible_tirar
-    Ayuda: múmero opciones para tirar
-    Mas ayuda: una jugada posible
+    - Lo lejos que este del centro
+    - Si hay dentras mas cartas en nuestra mano
+    - Cuanto más lejos este del 5 peor
+    - Cuando más lejos este de la más próxima peor
+- Añadir cuatro niveles de ayuda. Nos ayudaremos de la función es_posible_tirar
+    - Ayuda: múmero opciones para tirar
+    - Mas ayuda: una jugada posible
+    - Con IA nivel 1
+    - Con AI nivel 2
 - Hacer aplicación de escritorio con Tkinter
+
+### 2
+- Se implementa la Inteligencia Artificial básica
+
+### 1.2
+- Pasamos el archivo por autopep8
+- Cambio en el lugar donde se llama al ganador
 
 ### 1
 - Versión base
 
 
----
 # Licencias y derechos de autor
 CC (Creative Commons) de Reconocimiento – NoComercial – SinObraDerivada
 ![CC (Creative Commons) de Reconocimiento – NoComercial – SinObraDerivada](https://raw.githubusercontent.com/JavierPerezManzanaro/Maquetacion-de-masivos-responsive-html-con-noticias/main/Reconocimiento-no-comercial-sin-obra-derivada.png)
 
 
----
 # Información de contacto del autor
 Javier Pérez
 javierperez@perasalvino.es
 
 
----
 # Errores conocidos
 -
 
 
----
 # Motivación
 Es un juego de cartas clásico que todo el mundo conoce. Realizar una aplicación que desarrolle el juego supone un reto. No se pueden tirar cualquier carta, hay que validar la tirada según varios parametros, implementamos la POO (las cartas y los jugadores son objetos), funciones, etc
 Mas adelante usar uno o más jugadores como una Inteligencia Artificial supone un reto añadido.
 Por último su paso de la version del terminal a una versión de escritorio con Tkinter es otro handicap.
 
----
 # Créditos y agradecimientos
 - A toda la comunidad web que me ha permitido ir ampliando mi formación.
 - A mi familia por su infinita paciencia.
