@@ -89,6 +89,9 @@ Implementaciones futuras:
     - Con AI nivel 2
 - Hacer aplicación de escritorio con Tkinter
 
+### 2.0.1
+- Cambios menores
+
 ### 2
 - Se implementa la Inteligencia Artificial básica
 

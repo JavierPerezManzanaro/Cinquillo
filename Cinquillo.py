@@ -857,7 +857,7 @@ Instrucciones de la aplicación:
         print()
 
         if jugador_activo_nombre[0:2].upper() == 'IA':
-            print(f'Va a tirar la {jugador_activo_nombre}. En su mano tiene:')
+            print(f'Va a tirar la "{jugador_activo_nombre}". En su mano tiene:')
         else:
             print(f'{jugador_activo_nombre} te toca tirar. En tu mano tienes:')
         mostar_estado(jugador_activo_mano)
@@ -866,19 +866,15 @@ Instrucciones de la aplicación:
 
         es_posible = es_posible_tirar(jugador_activo_mano)
         if es_posible == True:
-            # * Discriminamos que tipo de jugador es: la IA o humano
+            # * Discriminamos que tipo de jugador que es: la IA o humano
             if jugador_activo_nombre[0:2].upper() == 'IA':
                 # Es la IA
                 tirada_IA = IA(jugador_activo_mano)
                 print(f'"{jugador_activo_nombre}" ha pensado en esta tirada: {tirada_IA}')
                 baraja, jugador_activo_mano = jugada_ia(jugador_activo_mano, tirada_IA)
-                # for carta in baraja:
-                #     print(carta.numero, carta.palo, carta.es_tirada_valida)
             else:
                 # Es humano
                 baraja, jugador_activo_mano = jugada(baraja, jugador_activo_mano, jugador_activo_nombre)
-                # for carta in baraja:
-                #     print(carta.numero, carta.palo, carta.es_tirada_valida)
         else:
             print('Upps, no puedes tirar ninguna carta, tienes que pasar')
 
