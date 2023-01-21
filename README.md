@@ -88,6 +88,9 @@ Implementaciones futuras:
     - Con AI nivel 2
 - Hacer aplicación de escritorio con Tkinter
 
+### 2.0.3
+- Errores menores
+
 ### 2.0.2
 - Versión de la IA 2.1
 - Se puede poner el nombre que el usuario desee a la AI, por ejemplo: AI iMac, IA Ex Machina, IA Her

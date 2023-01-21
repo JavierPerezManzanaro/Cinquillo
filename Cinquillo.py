@@ -25,7 +25,7 @@ es_primero = int()
 baraja_diccionario = {}
 baraja = []
 grupo_en_orden = []
-
+PUNTUACION = (0, 1, 3, 6, 10, 15) # Ley de formación de números triangulares
 
 # * Configuración de logging
 logging.basicConfig(level=logging.WARNING,
@@ -675,12 +675,11 @@ def ganador_jugada(jugador_activo_nombre: str) -> None:
 
 
 def IA(mano: list) -> list:
-    """Versión 2.1
-    Nivel medio: Versión sin dificultar el juego a los openetes.
-    El nivel alto seria teniendo en cuenta como dificultar el juego a los openetes.
+    """Versión 2.2
+    Nivel medio: Versión sin dificultar el juego a los oponentes.
+    El nivel alto seria teniendo en cuenta como dificultar el juego a los oponentes.
     Si HAY huecos entre medias:
-        suma con acumulación del número de escalones que hay desde la primera a la mas alejada
-        y después se resta las cartas que hay de la mano (incluida la que se juega)
+        puntos = puntos final - puntos inicia - cartas nuestras entre medias
     si NO HAY huecos entre medias
         puntos = 0
 
@@ -702,29 +701,35 @@ def IA(mano: list) -> list:
     mano_copas.sort()
     mano_espadas.sort()
     mano_oros.sort()
-    # * Recorremos toda la mano para ver si es posible la tirada y si lo es, aplicamos la IA
+    # * Recorremos toda la mano para ver si es posible la tirada y si lo es aplicamos la IA
     # * Creamos un diccionario con key = tirada y value = valor_tirada
     mano_activa = []
     resumen_tirada = {}
+    valor_tirada = 0
     for carta in mano:
-        match carta.palo:
-            case 'bastos':
-                mano_activa = mano_bastos
-            case 'copas':
-                mano_activa = mano_copas
-            case 'espadas':
-                mano_activa = mano_bastos
-            case 'oros':
-                mano_activa = mano_bastos
         if carta.es_tirada_valida == True:
+            # * Seleccionamos la mano activa según la carta que sea
+            match carta.palo:
+                case 'bastos':
+                    mano_activa = mano_bastos
+                case 'copas':
+                    mano_activa = mano_copas
+                case 'espadas':
+                    mano_activa = mano_espadas
+                case 'oros':
+                    mano_activa = mano_oros
             try:
+                # * Implementación de la IA
+                print(mano_activa)
                 pasos = max(mano_activa) - min(mano_activa) + 1
+                valor_tirada = pasos + len(mano_activa)
             except:
                 print(
                     f'Error en este punto: {max(mano_activa)=} // {min(mano_activa)=}')
                 pasos = 0
-            valor_tirada = pasos + len(mano_activa)
+            
             if pasos == len(mano_activa):
+                print('Esta en este punto')
                 valor_tirada = 0
             # * Añadimos valor_tirada al diccionario
             key_carta = str(carta.numero) + ' ' + carta.palo
@@ -754,12 +759,15 @@ Instrucciones de la aplicación:
 1) Primero tenemos que introducir el número de jugadores.
 2) Después hay que introducir el nombre de cada jugador.
    Si quieres que algún (o algunos) jugador(es) sea (o sean) la Inteligencia Artificial escribe de nombre "IA" seguido del nombre que quieres
-   usar para esa Inteligencia Artificial, por ejemplo: "AI iMac", "IA Ex Machina" o "IA Her".
-3) Hay dos niveles disponibles (solamente si usas la IA, claro):
-   1) Básico: La IA solo se preocupa en intentar ganar,
-   2) Avanzado: No solo intententa ganar, si no que, además, intentara entorpecer que otros ganen.\n
+   usar para esa Inteligencia Artificial, por ejemplo: "AI iMac", "IA Ex Machina" o "IA Her".\n
           ''')
 
+# todo para implementar en el menú
+    """
+3) Hay dos niveles disponibles (solamente si usas la IA, claro):
+   1) Básico: La IA solo se preocupa en intentar ganar,
+   2) Avanzado: No solo intententa ganar, si no que, además, intentara entorpecer que otros ganen.
+    """
     # * Creamos las carta, la baraja y los jugadores
     for palo in PALOS:
         for numero in range(1, 11):
