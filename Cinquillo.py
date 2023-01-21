@@ -52,7 +52,7 @@ class Jugador:
     def __str__(self) -> str:
         return f'{self.nombre}'
 
-    def mostrar_mano(self):
+    def mostrar_mano(self) -> str:
         return self.mano
 
     def es_primero(self) -> bool:
@@ -84,7 +84,7 @@ class Carta:
         self.es_tirada_valida = (numero == 5) or (
             numero in range(4, 6) and palo == 'oro')
         self.nombre_carta = self.palo + '_' + str(self.numero)
-        # * aquí lo añadimos al diccionario
+        # * Aquí la añadimos al diccionario
         baraja_diccionario[self.nombre_carta] = self
 
     def __str__(self) -> str:
@@ -119,7 +119,7 @@ def crear_jugadores(baraja: list) -> list:
         baraja (list): entra la lista de las 40 cartas
 
     Returns:
-        list: El grupo que es una lista de 2, 3 o 4 jugadores (cada jugador lleva su nombre, su mano y un número para le orden)
+        list: El grupo que es una lista de 2, 3 o 4 jugadores (cada jugador lleva su nombre, su mano y un número para el orden)
     """
     logging.debug('Entra en crear_jugadores')
     grupo = ()
@@ -201,7 +201,7 @@ def crear_jugadores(baraja: list) -> list:
 
 
 def chequear_nombre_jugador(numero: str) -> str:
-    """Chequeamos que el nombre dle jugados no esta vacio
+    """Chequeamos que el nombre de los jugadores no esta vacio
 
     Args:
         numero (str): numero en texto del jugador
@@ -234,7 +234,7 @@ def crear_tablero(baraja) -> None:
     # ? Panel.fit(crear_carta('2 Espadas'))
     for numero in range(1, 11):
         numero = str(numero)
-        # * Para la creacion de la tabla todo tiene que ser str
+        # Para la creacion de la tabla todo tiene que ser str
         table.add_row(numero,
                       crear_carta_tablero('Bastos', numero, baraja),
                       crear_carta_tablero('Copas', numero, baraja),
@@ -245,15 +245,16 @@ def crear_tablero(baraja) -> None:
 
 
 def crear_carta_tablero(palo: str, numero: str, baraja: list) -> str:
-    """_summary_
+    """Crea cada una de las 40 cartas para que se muestren en la función crear_tablero.
+    Puede retornar la carta o tres retornos de línea si la carta no esta visible
 
     Args:
-        palo (str): _description_
-        numero (str): _description_
-        baraja (list): _description_
+        palo (str): Palo de la carta
+        numero (str): Número de la carta
+        baraja (list): Baraja donde estan atributos como si es visible
 
     Returns:
-        str: _description_
+        str: carta para la función crear_tablero
     """
     logging.debug('Entra en crear_carta_tablero')
     paso = False
@@ -323,7 +324,7 @@ def jugada(baraja: list, jugador_activo_mano: list, jugador_activo_nombre):
     carta_usuario = []
     while paso_jugada is False:
         carta_usuario = input(
-            '¿Qué carta quieres poner en el mesa (número y palo)? ')
+            '¿Qué carta quieres poner en la mesa (número y palo)? ')
         if carta_usuario == '':
             errores('vacio')
             paso_longuitud = False
@@ -342,7 +343,6 @@ def jugada(baraja: list, jugador_activo_mano: list, jugador_activo_nombre):
                         if paso_tirada_valida == True:
                             paso_visibilidad = analizar_visibilidad(carta_usuario, baraja)
                             if paso_visibilidad == True:
-                                # * Si todo es True aceptamos la jugada
                                 print()
                                 print(
                                     f'{jugador_activo_nombre} la tirada es válida (se muestra en la siguiente pantalla)')
@@ -354,15 +354,20 @@ def jugada(baraja: list, jugador_activo_mano: list, jugador_activo_nombre):
 
 
 def jugada_ia(jugador_activo_mano: list, tirada_IA: list):
+    """Ejecuta la tirada de la IA
 
+    Args:
+        jugador_activo_mano (list):
+        tirada_IA (list): Tirada de la IA
+
+    Returns:
+        baraja: list
+        jugador_activo_mano: list
+    """
     logging.debug('Entra en jugada_AI')
-    # carta_usuario = []
-    # carta_usuario = carta_usuario_str.split()
-    # carta_usuario[0] = int(carta_usuario[0])
     paso_tirada_valida, baraja = analizar_tirada_valida(
         tirada_IA, jugador_activo_mano)
     paso_visibilidad = analizar_visibilidad(tirada_IA, baraja)
-
     print()
     print(f'La tirada es válida (se muestra en la siguiente pantalla)')
     # * Eliminamos la carta
@@ -372,7 +377,7 @@ def jugada_ia(jugador_activo_mano: list, tirada_IA: list):
 
 def analizar_visibilidad(carta_usuario, baraja) -> bool:
     """Analizamos si la carta ya esta en la mesa.
-    Si no esta pero la va a colocar en la jugada actual cambia el valor de carta.visible = True
+    Si no esta, pero la va a colocar en la jugada actual cambia el valor de carta.visible = True
 
     Args:
         carta_usuario (list): _description_
@@ -398,6 +403,7 @@ def analizar_visibilidad(carta_usuario, baraja) -> bool:
 def analizar_tirada_valida(carta_usuario: list, mano: list):
     """Analizamos si es posible tirar esa carta, o sea, si está por encima o por debajo de las que estan en la mesa.
     También actualizamos el estado del atributo es_tirada_valida a True para la carta anterior y para la posterior
+
     Args:
         carta_usuario (list): _description_
 
@@ -424,12 +430,7 @@ def analizar_tirada_valida(carta_usuario: list, mano: list):
                 if carta_usuario[0] == 1:
                     por_debajo = carta_usuario[1] + '_' + str(carta_usuario[0])
                 else:
-                    por_debajo = carta_usuario[1] + \
-                        '_' + str(carta_usuario[0]-1)
-                # # recorremos el diccionario buscando las dos cartas a modificar
-                # for carta in baraja:
-                #     if carta.nombre_carta == por_encima or carta.nombre_carta == por_debajo:
-                #         carta.es_tirada_valida = True
+                    por_debajo = carta_usuario[1] + '_' + str(carta_usuario[0]-1)
             else:
                 errores('tirada_no_valida')
     # * Recorremos el diccionario buscando las dos cartas a modificar
@@ -441,13 +442,13 @@ def analizar_tirada_valida(carta_usuario: list, mano: list):
 
 
 def analizar_longitud(carta_usuario) -> bool:
-    """Analizamos la longuitud de la cadena. Si hay un 'de' lo elimina.
+    """Analizamos la longuitud de la cadena. Si hay un 'de' lo elimina
 
     Args:
         carta_usuario (list): _description_
 
     Returns:
-        Bool: True si es correcto, si tiene 2 elementos
+        Bool: True si es correcto: si tiene 2 elementos
     """
     logging.debug('Entra en analizar_longitud')
     paso_longuitud = True
@@ -466,14 +467,14 @@ def analizar_longitud(carta_usuario) -> bool:
 
 
 def analizar_contenido(carta_usuario):
-    """Analizamos el contenido: que hay un numero y un palo y
+    """Analizamos el contenido: que existe un número y un palo y
     unfificamos el número de salida de carta_usario a 8, 9 y 10 para que sea un int
 
     Args:
         carta_usuario (list): la entrada del usuario
 
     Returns:
-        paso_contenido: True si hay un número + un palo
+        paso_contenido: True si hay un número y un palo
     """
     logging.debug('Entra en analizar_contenido')
     match carta_usuario[0]:
@@ -593,11 +594,11 @@ def mostar_estado(mano_jugador) -> None:
     print(f'  Copas: {mano_copas}')
     print(f'  Espadas: {mano_espadas}')
     print(f'  Oros: {mano_oros}')
-    print(f'  Número de cartas: {len(mano_jugador)}')
+    print(f'  -Número de cartas: {len(mano_jugador)}')
 
 
 def eliminar_carta(carta_usuario, jugador_activo_mano) -> list:
-    """Eliminanos la carta de la mano del jugador
+    """Eliminamos la carta de la mano del jugador
 
     Args:
         numero (int): numero de la carta
@@ -655,10 +656,6 @@ def es_posible_tirar(mano: list) -> bool:
     for carta in mano:
         if carta.es_tirada_valida == True:
             es_posible = True
-        # paso_tirada_valida, baraja = analizar_tirada_valida(carta_usuario, mano)
-        # es_posible = True if paso_tirada_valida == True else False
-        # if paso_tirada_valida == True:
-        #     es_posible = True
     print()
     return es_posible
 
@@ -671,15 +668,17 @@ def ganador_jugada(jugador_activo_nombre: str) -> None:
     """
     logging.debug('Entra en ganador_jugada')
     print()
-    cadena = '*  ' + jugador_activo_nombre + ' has ganado la partida  *'
+    cadena = '*  ' + jugador_activo_nombre.upper() + ' has ganado la partida  *'
     print('*'*len(cadena))
     print(cadena)
     print('*'*len(cadena))
 
 
 def IA(mano: list) -> list:
-    """Versión sin dificultar a los openetes, nivel Medio (el nivel alto seria teniendo en cuenta como dificultar el juego a los openetes)
-    si HAY huecos entre medias
+    """Versión 2.1
+    Nivel medio: Versión sin dificultar el juego a los openetes.
+    El nivel alto seria teniendo en cuenta como dificultar el juego a los openetes.
+    Si HAY huecos entre medias:
         suma con acumulación del número de escalones que hay desde la primera a la mas alejada
         y después se resta las cartas que hay de la mano (incluida la que se juega)
     si NO HAY huecos entre medias
@@ -708,7 +707,6 @@ def IA(mano: list) -> list:
     mano_activa = []
     resumen_tirada = {}
     for carta in mano:
-        #print('----entramos en el for de la IA----')
         match carta.palo:
             case 'bastos':
                 mano_activa = mano_bastos
@@ -719,18 +717,6 @@ def IA(mano: list) -> list:
             case 'oros':
                 mano_activa = mano_bastos
         if carta.es_tirada_valida == True:
-            #print(str(carta.numero)+ ' de ' + carta.palo)
-            """try:
-                código
-            except:
-                código a ejecutar si hay error
-            except <tipo de error>:
-                código a ejecutar si hay error
-            else:
-                código que se va a ejecutar si no hay error
-            finally:
-                se va a ejecutar siempre: con o sin error.
-            """
             try:
                 pasos = max(mano_activa) - min(mano_activa) + 1
             except:
@@ -738,24 +724,21 @@ def IA(mano: list) -> list:
                     f'Error en este punto: {max(mano_activa)=} // {min(mano_activa)=}')
                 pasos = 0
             valor_tirada = pasos + len(mano_activa)
-            # if len(mano_activa) == 1:
-            #     print('solo hay una carta')
-            #     valor_tirada = 1
             if pasos == len(mano_activa):
-                print('pasos == len(mano_activa)') #! no entiendo esto
                 valor_tirada = 0
             # * Añadimos valor_tirada al diccionario
-            #print(f'{valor_tirada=} {pasos=} {max(mano_activa)=} {min(mano_activa)=}')
             key_carta = str(carta.numero) + ' ' + carta.palo
             resumen_tirada_temp = {key_carta : valor_tirada}
             resumen_tirada.update(resumen_tirada_temp)
     # * Ordenamos el diccionario
     resumen_tirada_ordenados = sorted(
         resumen_tirada.items(), key=operator.itemgetter(1), reverse=True)
+    print(f'Puntos de cada tirada: {resumen_tirada_ordenados}')
     # * Pasamos de diccionario (solo el primer resultado) a lista
     tirada_ai = []
-    tirada_ai = [int(resumen_tirada_ordenados[0][0][0]),
-                 resumen_tirada_ordenados[0][0][2:len(resumen_tirada_ordenados[0][0])]]
+    tirada_ai = resumen_tirada_ordenados[0][0].split()
+    tirada_ai = int(tirada_ai[0]), tirada_ai[1]
+    tirada_ai = list(tirada_ai)
     return tirada_ai
 
 
@@ -769,8 +752,8 @@ if __name__ == '__main__':
     print('''
 Instrucciones de la aplicación:
 1) Primero tenemos que introducir el número de jugadores.
-2) Después hay que meter el nombre de cada juagdor.
-   Si quieres que algún (o algunos) jugador(es) sea la Inteligencia Artificial escribe de nombre "IA" seguido del nombre que quieres
+2) Después hay que introducir el nombre de cada jugador.
+   Si quieres que algún (o algunos) jugador(es) sea (o sean) la Inteligencia Artificial escribe de nombre "IA" seguido del nombre que quieres
    usar para esa Inteligencia Artificial, por ejemplo: "AI iMac", "IA Ex Machina" o "IA Her".
 3) Hay dos niveles disponibles (solamente si usas la IA, claro):
    1) Básico: La IA solo se preocupa en intentar ganar,
@@ -814,7 +797,7 @@ Instrucciones de la aplicación:
         if primero == True:
             es_primero = i
     jugador_en_curso = grupo[es_primero]
-    print(f'{jugador_en_curso.nombre} tienes el "5 de oros" y vas a empezar a jugar')
+    print(f'{jugador_en_curso.nombre} tienes el "5 de oros" y empezara a jugar')
     print()
 
     # * Creamos el grupo por orden (grupo_en_orden)
@@ -824,28 +807,23 @@ Instrucciones de la aplicación:
         grupo_en_orden.append(grupo[i])
     # del comienzo al primero
     for i in range(0, primero-1):
-        # print(f'{i=}')
         grupo_en_orden.append(grupo[i])
 
     # * Eliminamos carta de la mano
     jugador_en_curso.mano.remove(baraja_diccionario['oros_5'])
 
     # * Mostrar mano
-    print(f'Tu mano actual (después de tirar el "5 de oros") es:')
+    print(f'Mano actual (después de tirar el "5 de oros") es:')
     mostar_estado(jugador_en_curso.mano)
 
     pausa()
 
-    # for jugador in grupo:
-    #     pprint(jugador.todos_los_datos)
-
-    # * Hacemos circular la lista (grupo_en_orden). Uso: next(grupo_en_orden).nombre
+    # * Hacemos circular la lista de jugadores (grupo_en_orden). Uso: next(grupo_en_orden).nombre
     grupo_en_orden = cycle(grupo_en_orden)
-    # nos saltamos el primero porque lo hemos hecho manualmente
+    # nos saltamos el primero porque ha jugado de forma manual
     jugador_activo = next(grupo_en_orden)
 
-    # * Ciclo del juego, el primer jugador no esta porque lo hemos desarrollado manualmente
-    # * Solo se sale cuando hay un ganador
+    # * Ciclo del juego, solo se sale cuando hay un ganador
     ganador = False
 
     while ganador == False:
@@ -857,7 +835,7 @@ Instrucciones de la aplicación:
         print()
 
         if jugador_activo_nombre[0:2].upper() == 'IA':
-            print(f'Va a tirar la "{jugador_activo_nombre}". En su mano tiene:')
+            print(f'Va a tirar "{jugador_activo_nombre}". En su mano tiene:')
         else:
             print(f'{jugador_activo_nombre} te toca tirar. En tu mano tienes:')
         mostar_estado(jugador_activo_mano)
@@ -869,14 +847,20 @@ Instrucciones de la aplicación:
             # * Discriminamos que tipo de jugador que es: la IA o humano
             if jugador_activo_nombre[0:2].upper() == 'IA':
                 # Es la IA
-                tirada_IA = IA(jugador_activo_mano)
-                print(f'"{jugador_activo_nombre}" ha pensado en esta tirada: {tirada_IA}')
-                baraja, jugador_activo_mano = jugada_ia(jugador_activo_mano, tirada_IA)
+                tirada_ia = IA(jugador_activo_mano)
+                print(
+                    f'"{jugador_activo_nombre}" ha pensado en esta tirada: {tirada_ia[0]} {str(tirada_ia[1])}')
+                baraja, jugador_activo_mano = jugada_ia(jugador_activo_mano, tirada_ia)
             else:
                 # Es humano
                 baraja, jugador_activo_mano = jugada(baraja, jugador_activo_mano, jugador_activo_nombre)
         else:
-            print('Upps, no puedes tirar ninguna carta, tienes que pasar')
+            if jugador_activo_nombre[0:2].upper() == 'IA':
+                # Es la IA
+                print('Upps, la IA no puede tirar ninguna carta, tiene que pasar')
+            else:
+                # Es humano
+                print('Upps, no puedes tirar ninguna carta, tienes que pasar')
 
 
         # * Tratamos el ganador del juego

@@ -43,9 +43,9 @@ Si no sabes jugar puedes consultar estas páginas webs:
 - Esta versión se ha desarrollado para jugar de 2 a 4 jugadores
 - No tiene recursos gráficos, esta centrado en la lógica por eso se desarrolla en la terminal, mas adelante se implementara con Tkinter
 - Las cartas se reparten en manos aleatoriamente
-- Hay un filtro para validar la tirada:
+- Hay filtros para validar las tiradas:
   - No esta permitido tirar una carta que no este en tu mano
-  - No puedes dejar ningún hueco sin tirar
+  - No puedes dejar ningún hueco en blanco
   - Admite el uso de las palabras Sota, Caballo y Rey aunque solo se muestra el número en el panel
 
 
@@ -71,12 +71,11 @@ Seguir las instrucciones que se van mostrando en el terminal
 ## Funciones a implementar
 Implementaciones futuras:
 - Si escribimos Salir cuando preguntamos por la tirada salimos de la aplicación
-- Añadir la ia:
-  - Opción de poner el nombre que el usuario desee, por ejemplo: AI iMac, IA Ex Machina, IA Her
-  - Sera uno o más jugadores autonomos
+- Modificar la IA:
+  - Mejorar su funcionalidad
   - Abra dos niveles en la IA:
     - Nivel 1: Solo pretende colocar sus cartas
-    - Nivel 2: Además de colocar sus cartas intenta impedir que sus openentes las coloquen
+    - Nivel 2: Además de colocar sus cartas intenta impedir que sus openentes coloquen las suyas
   - El proceso sera almacenar, en una variable, la importancia o el peso que se da a la carta según estos criterios:
     - Lo lejos que este del centro
     - Si hay dentras mas cartas en nuestra mano
@@ -88,6 +87,12 @@ Implementaciones futuras:
     - Con IA nivel 1
     - Con AI nivel 2
 - Hacer aplicación de escritorio con Tkinter
+
+### 2.0.2
+- Versión de la IA 2.1
+- Se puede poner el nombre que el usuario desee a la AI, por ejemplo: AI iMac, IA Ex Machina, IA Her
+- Mejora de la documentación
+- Limpieza de código
 
 ### 2.0.1
 - Cambios menores
