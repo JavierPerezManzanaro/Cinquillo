@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # /
+# source 'venv/bin/activate'
 
 # ! CUIDADO
 # todo por hacer
@@ -25,7 +26,7 @@ es_primero = int()
 baraja_diccionario = {}
 baraja = []
 grupo_en_orden = []
-PUNTUACION = (0, 1, 3, 6, 10, 15) # Ley de formación de números triangulares
+PUNTOS = {'1': 10, '2': 6, '3': 3, '4': 1, '5': 0, '6': 1, '7': 3, '8': 6, '9': 10, '10': 15} # * Carta: valor
 
 # * Configuración de logging
 logging.basicConfig(level=logging.WARNING,
@@ -353,12 +354,12 @@ def jugada(baraja: list, jugador_activo_mano: list, jugador_activo_nombre):
     return baraja, jugador_activo_mano
 
 
-def jugada_ia(jugador_activo_mano: list, tirada_IA: list):
+def jugada_ia(jugador_activo_mano: list, tirada_ia: list):
     """Ejecuta la tirada de la IA
 
     Args:
         jugador_activo_mano (list):
-        tirada_IA (list): Tirada de la IA
+        tirada_ia (list): Tirada de la IA
 
     Returns:
         baraja: list
@@ -366,12 +367,12 @@ def jugada_ia(jugador_activo_mano: list, tirada_IA: list):
     """
     logging.debug('Entra en jugada_AI')
     paso_tirada_valida, baraja = analizar_tirada_valida(
-        tirada_IA, jugador_activo_mano)
-    paso_visibilidad = analizar_visibilidad(tirada_IA, baraja)
+        tirada_ia, jugador_activo_mano)
+    paso_visibilidad = analizar_visibilidad(tirada_ia, baraja)
     print()
     print(f'La tirada es válida (se muestra en la siguiente pantalla)')
     # * Eliminamos la carta
-    jugador_activo_mano = eliminar_carta(tirada_IA, jugador_activo_mano)
+    jugador_activo_mano = eliminar_carta(tirada_ia, jugador_activo_mano)
     return baraja, jugador_activo_mano
 
 
@@ -668,7 +669,7 @@ def ganador_jugada(jugador_activo_nombre: str) -> None:
     """
     logging.debug('Entra en ganador_jugada')
     print()
-    cadena = '*  ' + jugador_activo_nombre.upper() + ' has ganado la partida  *'
+    cadena = '*  ¡¡¡' + jugador_activo_nombre.upper() + ' gano la partida!!!  *'
     print('*'*len(cadena))
     print(cadena)
     print('*'*len(cadena))
@@ -687,7 +688,8 @@ def IA(mano: list) -> list:
         mano (list): _description_
     """
     logging.debug('Entra en IA')
-    #* Agrupamos la mano por palos
+
+    # * Agrupamos las 4 manos por palos
     mano_bastos = []
     mano_copas = []
     mano_espadas = []
@@ -701,11 +703,15 @@ def IA(mano: list) -> list:
     mano_copas.sort()
     mano_espadas.sort()
     mano_oros.sort()
+
     # * Recorremos toda la mano para ver si es posible la tirada y si lo es aplicamos la IA
     # * Creamos un diccionario con key = tirada y value = valor_tirada
     mano_activa = []
     resumen_tirada = {}
     valor_tirada = 0
+    mano_activa_para_menor = []
+    mano_activa_para_mayor = []
+
     for carta in mano:
         if carta.es_tirada_valida == True:
             # * Seleccionamos la mano activa según la carta que sea
@@ -718,19 +724,36 @@ def IA(mano: list) -> list:
                     mano_activa = mano_espadas
                 case 'oros':
                     mano_activa = mano_oros
-            try:
-                # * Implementación de la IA
-                print(mano_activa)
-                pasos = max(mano_activa) - min(mano_activa) + 1
-                valor_tirada = pasos + len(mano_activa)
-            except:
-                print(
-                    f'Error en este punto: {max(mano_activa)=} // {min(mano_activa)=}')
-                pasos = 0
-            
-            if pasos == len(mano_activa):
-                print('Esta en este punto')
+
+            logging.info(f'---- {carta.numero=}')
+
+            # * Vemos si hay huecos entre medias
+            if len(mano_activa) == max(mano_activa) - min(mano_activa) + 1:
+                # * No hay huecos
                 valor_tirada = 0
+                logging.info('No hay huecos')
+            else:
+                # * Hay huecos
+                mano_activa_para_menor = mano_activa.copy()
+                mano_activa_para_mayor = mano_activa.copy()
+                match carta.numero:
+                        # case 5:
+                        #     # * Entra en 5
+                        #     print('es 5')
+                        #     if mano_activa_para_menor.index(numero-1)
+                        case numero if carta.numero <= 5:
+                            # * La carta es menor de 5
+                            indice = mano_activa_para_menor.index(numero)
+                            del mano_activa_para_menor[indice + 1:len(mano_activa_para_menor)]
+                            valor_tirada = valor_tirada_ia(
+                                mano_activa_para_menor)
+                        case numero if carta.numero >= 5:
+                            # * El carta es mayor de 5
+                            indice = mano_activa_para_mayor.index(numero)
+                            del mano_activa_para_mayor[0:indice]
+                            valor_tirada = valor_tirada_ia(
+                                mano_activa_para_mayor)
+
             # * Añadimos valor_tirada al diccionario
             key_carta = str(carta.numero) + ' ' + carta.palo
             resumen_tirada_temp = {key_carta : valor_tirada}
@@ -738,13 +761,40 @@ def IA(mano: list) -> list:
     # * Ordenamos el diccionario
     resumen_tirada_ordenados = sorted(
         resumen_tirada.items(), key=operator.itemgetter(1), reverse=True)
-    print(f'Puntos de cada tirada: {resumen_tirada_ordenados}')
+    logging.info(f'Puntos de cada tirada: {resumen_tirada_ordenados}')
     # * Pasamos de diccionario (solo el primer resultado) a lista
     tirada_ai = []
     tirada_ai = resumen_tirada_ordenados[0][0].split()
     tirada_ai = int(tirada_ai[0]), tirada_ai[1]
     tirada_ai = list(tirada_ai)
     return tirada_ai
+
+
+def valor_tirada_ia(mano_activa_para_ia: list) -> int:
+    carta1 = max(mano_activa_para_ia)
+    carta2 = min(mano_activa_para_ia)
+    # print(f'{carta1=} -- {carta2=}')
+    longitud = len(mano_activa_para_ia)
+    # diccionario PUNTOS{'Carta': valor}
+    valor1 = PUNTOS[str(carta1)]
+    valor2 = PUNTOS[str(carta2)]
+    # print(f'{valor1=} -- {valor2=}')
+    mayor = valor1 if valor1 > valor2 else valor2
+    menor = valor1 if valor1 < valor2 else valor2
+    # * Implementación de la IA
+    # ? meter en un try?
+    """ Si HAY huecos entre medias:
+            puntos = puntos final - puntos inicia - cartas nuestras entre medias
+        si NO HAY huecos entre medias
+            puntos = 0
+    """
+    valor_tirada = mayor - menor - longitud
+    logging.info(
+        f'{mano_activa_para_ia} ** {valor_tirada=} = {mayor=}-{menor=}-{longitud=} // {valor1=} // {valor2=} // len={longitud}')
+    return valor_tirada
+
+
+
 
 
 # * *********************

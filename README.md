@@ -3,7 +3,7 @@
 [![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/)
 
 
-# Juego de cartas del Cinquillo
+# Juego de cartas del Cinquillo con IA
 ## Descripción
 Se reparten todas las cartas y el juego consiste en ir colocando las cartas sobre la mesa hasta quedarse sin ninguna.
 
@@ -76,17 +76,15 @@ Implementaciones futuras:
   - Abra dos niveles en la IA:
     - Nivel 1: Solo pretende colocar sus cartas
     - Nivel 2: Además de colocar sus cartas intenta impedir que sus openentes coloquen las suyas
-  - El proceso sera almacenar, en una variable, la importancia o el peso que se da a la carta según estos criterios:
-    - Lo lejos que este del centro
-    - Si hay dentras mas cartas en nuestra mano
-    - Cuanto más lejos este del 5 peor
-    - Cuando más lejos este de la más próxima peor
 - Añadir cuatro niveles de ayuda. Nos ayudaremos de la función es_posible_tirar
     - Ayuda: múmero opciones para tirar
     - Mas ayuda: una jugada posible
     - Con IA nivel 1
     - Con AI nivel 2
 - Hacer aplicación de escritorio con Tkinter
+
+### 2.1
+- Versión de la IA 2.2
 
 ### 2.0.3
 - Errores menores
