@@ -63,7 +63,7 @@ Seguir las instrucciones que se van mostrando en el terminal
 - README.md
   El archivo que estas leyendo
 
--Cinquillo.py
+- Cinquillo.py
   Juego en Python
 
 
@@ -82,6 +82,11 @@ Implementaciones futuras:
     - Con IA nivel 1
     - Con AI nivel 2
 - Hacer aplicación de escritorio con Tkinter
+
+### 2.2
+- Mejoramos la IA
+- Limpieza de código
+- Mejoras menores
 
 ### 2.1
 - Versión de la IA 2.2
